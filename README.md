@@ -1,5 +1,5 @@
 # RustServerInstaller
-Rust Server Installer Script
+Rust Server Installer Script\n
 
 Includes the following:
 SteamCMD Installation
