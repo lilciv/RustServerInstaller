@@ -19,7 +19,7 @@ echo.
 :branch
 title Setting Up Your Server
 echo.
-echo Note: There is direct Oxide support for the Staging Branch. You will have to manually install it.
+echo Note: There is no direct Oxide support for the Staging Branch. You will have to manually install it.
 choice /c yn /m "Do you want to install a Staging Branch server? (Usually, you DO NOT want to do this): "
 If ERRORLEVEL 2 goto rustmain
 IF ERRORLEVEL 1 goto ruststaging
