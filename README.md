@@ -11,6 +11,7 @@ Creation of StartServer.bat and UpdateServer.bat files based on user values.
 
 ## How To Use
 Launch the RustServerInstaller.bat file
+
 Follow the listed prompts
 
 
