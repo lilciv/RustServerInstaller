@@ -1,5 +1,4 @@
-# RustServerInstaller
-Rust Server Installer Script
+# Rust Server Installer Script
 
 Includes the following:
 
