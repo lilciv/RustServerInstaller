@@ -16,7 +16,3 @@ Follow the listed prompts
 
 
 For assistance, please message me on Discord: lilciv#2944
-
-
-## To Do:
-Add custom map support.
