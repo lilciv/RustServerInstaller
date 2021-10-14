@@ -20,7 +20,7 @@ echo.
 title Setting Up Your Server
 echo.
 echo.
-echo Note: There is direct Oxide support for the Staging Branch. You will have to manually install it.
+echo Note: There is no direct Oxide support for the Staging Branch. You will have to manually install it.
 echo.
 choice /c yn /m "Do you want to install a Staging Branch server? (Usually, you DO NOT want to do this): "
 echo.
