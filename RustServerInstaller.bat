@@ -1,7 +1,6 @@
 @echo off
-REM Rust Server Installer (v1.0.7) by lilciv#2944
-color 02
-mode 110,20
+REM Rust Server Installer (v1.0.8) by lilciv#2944
+mode 110,20 & color 02
 :steamcmd
 title Installing SteamCMD...
 set steamcmd=C:\SteamCMD
@@ -41,8 +40,8 @@ title Installing Rust...
 %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 +quit
 REM Creating Update File
 echo @echo off> UpdateServer.bat
-echo color 02>> UpdateServer.bat
 echo mode 110,20>> UpdateServer.bat
+echo color 02>> UpdateServer.bat
 echo title Updating Server...>> UpdateServer.bat
 echo %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 +quit>> UpdateServer.bat
 echo echo.>> UpdateServer.bat
@@ -66,8 +65,8 @@ title Installing Rust Staging...
 %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 -beta staging +quit
 REM Creating Update File
 echo @echo off> UpdateServer.bat
-echo color 02>> UpdateServer.bat
 echo mode 110,20>> UpdateServer.bat
+echo color 02>> UpdateServer.bat
 echo title Updating Server...>> UpdateServer.bat
 echo %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 -beta staging +quit>> UpdateServer.bat
 echo echo.>> UpdateServer.bat
@@ -119,6 +118,9 @@ echo.
 set rconport=28016
 set /p rconport="Enter your RCON port (Default: 28016): "
 echo.
+set identity=RustServer
+set /p identity="Enter your server identity (Default: RustServer): "
+echo.
 set seed=21474
 set /p seed="Enter your map seed (Default: 21474): "
 echo.
@@ -145,7 +147,7 @@ set /p headerimage="Enter your Server Header Image (If you don't have one, leave
 echo @echo off> StartServer.bat
 echo :start>> StartServer.bat
 echo RustDedicated.exe -batchmode ^^>> StartServer.bat
-echo -logFile "ServerLogs.txt" ^^>>StartServer.bat
+echo -logFile "%identity%_logs.txt" ^^>>StartServer.bat
 echo -silent-crashes ^^>>StartServer.bat
 echo +server.port %serverport% ^^>> StartServer.bat
 echo +server.level "Procedural Map" ^^>> StartServer.bat
@@ -156,7 +158,7 @@ echo +server.hostname "%hostname%" ^^>> StartServer.bat
 echo +server.description "%description%" ^^>> StartServer.bat
 echo +server.headerimage "%headerimage%" ^^>>StartServer.bat
 echo +server.url "%serverurl%" ^^>>StartServer.bat
-echo +server.identity "RustServer" ^^>> StartServer.bat
+echo +server.identity "%identity%" ^^>> StartServer.bat
 echo +rcon.port %rconport% ^^>> StartServer.bat
 echo +rcon.password %rconpw% ^^>> StartServer.bat
 echo +rcon.web 1 ^^>> StartServer.bat
@@ -171,6 +173,9 @@ set /p serverport="Enter your server port (Default: 28015): "
 echo.
 set rconport=28016
 set /p rconport="Enter your RCON port (Default: 28016): "
+echo.
+set identity=RustServer
+set /p identity="Enter your server identity (Default: RustServer): "
 echo.
 set levelurl=https://www.dropbox.com/s/xyprhdhq5l8tmsf/procrustedit.map?dl=1
 set /p levelurl="Enter your custom map map URL (must be a direct download link!): "
@@ -195,7 +200,7 @@ set /p headerimage="Enter your Server Header Image (If you don't have one, leave
 echo @echo off> StartServer.bat
 echo :start>> StartServer.bat
 echo RustDedicated.exe -batchmode ^^>> StartServer.bat
-echo -logFile "ServerLogs.txt" ^^>>StartServer.bat
+echo -logFile "%identity%_logs.txt" ^^>>StartServer.bat
 echo -silent-crashes ^^>>StartServer.bat
 echo -levelurl "%levelurl%" ^^>> StartServer.bat
 echo +server.port %serverport% ^^>> StartServer.bat
@@ -204,7 +209,7 @@ echo +server.hostname "%hostname%" ^^>> StartServer.bat
 echo +server.description "%description%" ^^>> StartServer.bat
 echo +server.headerimage "%headerimage%" ^^>>StartServer.bat
 echo +server.url "%serverurl%" ^^>>StartServer.bat
-echo +server.identity "RustServer" ^^>> StartServer.bat
+echo +server.identity "%identity%" ^^>> StartServer.bat
 echo +rcon.port %rconport% ^^>> StartServer.bat
 echo +rcon.password %rconpw% ^^>> StartServer.bat
 echo +rcon.web 1 ^^>> StartServer.bat
