@@ -1,5 +1,5 @@
 @echo off
-REM Rust Server Installer (v1.0.8) by lilciv#2944
+REM Rust Server Installer (v2.0.1) by lilciv#2944
 mode 110,20 & color 02
 :steamcmd
 title Installing SteamCMD...
@@ -38,15 +38,17 @@ md %forceinstall%
 cd /d %forceinstall%
 title Installing Rust...
 %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 +quit
-REM Creating Update File
-echo @echo off> UpdateServer.bat
-echo mode 110,20>> UpdateServer.bat
-echo color 02>> UpdateServer.bat
-echo title Updating Server...>> UpdateServer.bat
-echo %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 +quit>> UpdateServer.bat
-echo echo.>> UpdateServer.bat
-echo echo Rust Updated! >> UpdateServer.bat
-echo pause>> UpdateServer.bat
+REM Creating Update File (Server)
+(
+	echo @echo off
+	echo mode 110,20
+	echo color 02
+	echo title Updating Server...
+	echo %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 +quit
+	echo echo.
+	echo echo Rust Updated!
+	echo pause
+)>UpdateServer.bat
 echo Rust installed!
 echo.
 goto choice
@@ -63,15 +65,17 @@ md %forceinstall%
 cd /d %forceinstall%
 title Installing Rust Staging...
 %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 -beta staging +quit
-REM Creating Update File
-echo @echo off> UpdateServer.bat
-echo mode 110,20>> UpdateServer.bat
-echo color 02>> UpdateServer.bat
-echo title Updating Server...>> UpdateServer.bat
-echo %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 -beta staging +quit>> UpdateServer.bat
-echo echo.>> UpdateServer.bat
-echo echo Rust Staging Updated! >> UpdateServer.bat
-echo pause>> UpdateServer.bat
+REM Creating Update File (Server)
+(
+	echo @echo off
+	echo mode 110,20
+	echo color 02
+	echo title Updating Server...
+	echo %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 -beta staging +quit
+	echo echo.
+	echo echo Rust Staging Updated!
+	echo pause
+)>UpdateServer.bat
 echo Rust Staging installed!
 echo.
 goto map
@@ -89,13 +93,16 @@ curl -SL -A "Mozilla/5.0" "https://umod.org/games/rust/download" --output %force
 cd /d %forceinstall%
 powershell -command "Expand-Archive -Force OxideMod.zip ./"
 del OxideMod.zip
-REM Creating Update File
-echo curl -SL -A "Mozilla/5.0" "https://umod.org/games/rust/download" --output %forceinstall%\OxideMod.zip>> UpdateServer.bat
-echo powershell -command "Expand-Archive -Force OxideMod.zip ./">> UpdateServer.bat
-echo del OxideMod.zip>> UpdateServer.bat
-echo echo.>> UpdateServer.bat
-echo echo Oxide Updated! >> UpdateServer.bat
-echo pause>> UpdateServer.bat
+REM Creating Update File (Oxide)
+(
+	echo curl -SL -A "Mozilla/5.0" "https://umod.org/games/rust/download" --output %forceinstall%\OxideMod.zip
+	echo cd /d %forceinstall%
+	echo powershell -command "Expand-Archive -Force OxideMod.zip ./"
+	echo del OxideMod.zip
+	echo echo.
+	echo echo Oxide Updated!
+	echo pause
+)>>UpdateServer.bat
 echo.
 echo Oxide installed!
 echo.
@@ -144,25 +151,28 @@ echo.
 echo Reminder: Your Header Image MUST contain ONLY the picture, at 1024x512 size (Ex: https://i.imgur.com/5CFzQHl.png)
 set /p headerimage="Enter your Server Header Image (If you don't have one, leave this blank): "
 
-echo @echo off> StartServer.bat
-echo :start>> StartServer.bat
-echo RustDedicated.exe -batchmode ^^>> StartServer.bat
-echo -logFile "%identity%_logs.txt" ^^>>StartServer.bat
-echo -silent-crashes ^^>>StartServer.bat
-echo +server.port %serverport% ^^>> StartServer.bat
-echo +server.level "Procedural Map" ^^>> StartServer.bat
-echo +server.seed %seed% ^^>> StartServer.bat
-echo +server.worldsize %worldsize% ^^>> StartServer.bat
-echo +server.maxplayers %maxplayers% ^^>> StartServer.bat
-echo +server.hostname "%hostname%" ^^>> StartServer.bat
-echo +server.description "%description%" ^^>> StartServer.bat
-echo +server.headerimage "%headerimage%" ^^>>StartServer.bat
-echo +server.url "%serverurl%" ^^>>StartServer.bat
-echo +server.identity "%identity%" ^^>> StartServer.bat
-echo +rcon.port %rconport% ^^>> StartServer.bat
-echo +rcon.password %rconpw% ^^>> StartServer.bat
-echo +rcon.web 1 ^^>> StartServer.bat
-echo goto start>> StartServer.bat
+REM Creating Start File (Procedural Map)
+(
+	echo @echo off
+	echo :start
+	echo RustDedicated.exe -batchmode ^^
+	echo -logFile "%identity%_logs.txt" ^^
+	echo -silent-crashes ^^
+	echo +server.port %serverport% ^^
+	echo +server.level "Procedural Map" ^^
+	echo +server.seed %seed% ^^
+	echo +server.worldsize %worldsize% ^^
+	echo +server.maxplayers %maxplayers% ^^
+	echo +server.hostname "%hostname%" ^^
+	echo +server.description "%description%" ^^
+	echo +server.headerimage "%headerimage%" ^^
+	echo +server.url "%serverurl%" ^^
+	echo +server.identity "%identity%" ^^
+	echo +rcon.port %rconport% ^^
+	echo +rcon.password %rconpw% ^^
+	echo +rcon.web 1 ^^
+	echo goto start
+)>StartServer.bat
 goto finish
 
 :startcustom
@@ -197,23 +207,26 @@ echo.
 echo Reminder: Your Header Image MUST contain ONLY the picture, at 1024x512 size (Ex: https://i.imgur.com/5CFzQHl.png)
 set /p headerimage="Enter your Server Header Image (If you don't have one, leave this blank): "
 
-echo @echo off> StartServer.bat
-echo :start>> StartServer.bat
-echo RustDedicated.exe -batchmode ^^>> StartServer.bat
-echo -logFile "%identity%_logs.txt" ^^>>StartServer.bat
-echo -silent-crashes ^^>>StartServer.bat
-echo -levelurl "%levelurl%" ^^>> StartServer.bat
-echo +server.port %serverport% ^^>> StartServer.bat
-echo +server.maxplayers %maxplayers% ^^>> StartServer.bat
-echo +server.hostname "%hostname%" ^^>> StartServer.bat
-echo +server.description "%description%" ^^>> StartServer.bat
-echo +server.headerimage "%headerimage%" ^^>>StartServer.bat
-echo +server.url "%serverurl%" ^^>>StartServer.bat
-echo +server.identity "%identity%" ^^>> StartServer.bat
-echo +rcon.port %rconport% ^^>> StartServer.bat
-echo +rcon.password %rconpw% ^^>> StartServer.bat
-echo +rcon.web 1 ^^>> StartServer.bat
-echo goto start>> StartServer.bat
+REM Creating Start File (Custom Map)
+(
+	echo @echo off
+	echo :start
+	echo RustDedicated.exe -batchmode ^^
+	echo -logFile "%identity%_logs.txt" ^^
+	echo -silent-crashes ^^
+	echo -levelurl "%levelurl%" ^^
+	echo +server.port %serverport% ^^
+	echo +server.maxplayers %maxplayers% ^^
+	echo +server.hostname "%hostname%" ^^
+	echo +server.description "%description%" ^^
+	echo +server.headerimage "%headerimage%" ^^
+	echo +server.url "%serverurl%" ^^
+	echo +server.identity "%identity%" ^^
+	echo +rcon.port %rconport% ^^
+	echo +rcon.password %rconpw% ^^
+	echo +rcon.web 1 ^^
+	echo goto start
+)>StartServer.bat
 goto finish
 
 :finish
