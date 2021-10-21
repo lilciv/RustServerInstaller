@@ -1,5 +1,5 @@
 @echo off
-REM Rust Server Installer (v2.0.1) by lilciv#2944
+REM Rust Server Installer (v2.0.2) by lilciv#2944
 mode 110,20 & color 02
 :steamcmd
 title Installing SteamCMD...
@@ -157,7 +157,6 @@ REM Creating Start File (Procedural Map)
 	echo :start
 	echo RustDedicated.exe -batchmode ^^
 	echo -logFile "%identity%_logs.txt" ^^
-	echo -silent-crashes ^^
 	echo +server.port %serverport% ^^
 	echo +server.level "Procedural Map" ^^
 	echo +server.seed %seed% ^^
@@ -213,7 +212,6 @@ REM Creating Start File (Custom Map)
 	echo :start
 	echo RustDedicated.exe -batchmode ^^
 	echo -logFile "%identity%_logs.txt" ^^
-	echo -silent-crashes ^^
 	echo -levelurl "%levelurl%" ^^
 	echo +server.port %serverport% ^^
 	echo +server.maxplayers %maxplayers% ^^
