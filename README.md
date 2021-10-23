@@ -20,3 +20,12 @@ Follow the listed prompts.
 
 
 For assistance, please message me on Discord: lilciv#2944
+
+## Custom Maps
+One thing to note about using Custom Maps:
+
+Custom Maps **MUST** be a direct downloadable link, meaning the link must immedately start the map download.
+
+For example, https://www.dropbox.com/s/xyprhdhq5l8tmsf/procrustedit.map?dl=1 is a direct download link.
+
+For DropBox links, ensure that the end of the link has "dl=1" and not "dl=0"
