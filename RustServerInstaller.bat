@@ -1,14 +1,14 @@
 @echo off
-REM Rust Server Installer (v2.0.3) by lilciv#2944
+REM Rust Server Installer (v2.0.4) by lilciv#2944
 mode 110,20 & color 02
 :steamcmd
 title Installing SteamCMD...
 set steamcmd=C:\SteamCMD
 set /p steamcmd="Enter the location you want SteamCMD installed (Default: C:\SteamCMD): "
 echo.
-md %steamcmd%
-curl -SL -A "Mozilla/5.0" https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip --output %steamcmd%\SteamCMD.zip
-cd /d %steamcmd%
+md "%steamcmd%"
+curl -SL -A "Mozilla/5.0" https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip --output "%steamcmd%"\SteamCMD.zip
+cd /d "%steamcmd%"
 powershell -command "Expand-Archive -Force SteamCMD.zip ./"
 del SteamCMD.zip
 echo.
@@ -34,17 +34,17 @@ echo The folder should either be empty or non-existent.
 echo.
 set /p forceinstall="Enter the location you want the Rust Server installed (Default: C:\RustServer): "
 echo.
-md %forceinstall%
-cd /d %forceinstall%
+md "%forceinstall%"
+cd /d "%forceinstall%"
 title Installing Rust...
-%steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 +quit
-REM Creating Update File (Server)
+"%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 +quit
+REM Creating Update File (Release Server)
 (
 	echo @echo off
 	echo mode 110,20
 	echo color 02
 	echo title Updating Server...
-	echo %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 +quit
+	echo "%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 +quit
 	echo echo.
 	echo echo Rust Updated!
 	echo pause
@@ -61,17 +61,17 @@ echo The folder should either be empty or non-existent.
 echo.
 set /p forceinstall="Enter the location you want the Rust Staging Branch Server installed (Default: C:\RustStagingServer): "
 echo.
-md %forceinstall%
-cd /d %forceinstall%
+md "%forceinstall%"
+cd /d "%forceinstall%"
 title Installing Rust Staging...
-%steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 -beta staging +quit
-REM Creating Update File (Server)
+"%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 -beta staging +quit
+REM Creating Update File (Staging Server)
 (
 	echo @echo off
 	echo mode 110,20
 	echo color 02
 	echo title Updating Server...
-	echo %steamcmd%\steamcmd.exe +login anonymous +force_install_dir %forceinstall% +app_update 258550 -beta staging +quit
+	echo "%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 -beta staging +quit
 	echo echo.
 	echo echo Rust Staging Updated!
 	echo pause
@@ -89,14 +89,14 @@ IF ERRORLEVEL 1 goto oxide
 
 :oxide
 title Installing Oxide...
-curl -SL -A "Mozilla/5.0" "https://umod.org/games/rust/download" --output %forceinstall%\OxideMod.zip
-cd /d %forceinstall%
+curl -SL -A "Mozilla/5.0" "https://umod.org/games/rust/download" --output "%forceinstall%"\OxideMod.zip
+cd /d "%forceinstall%"
 powershell -command "Expand-Archive -Force OxideMod.zip ./"
 del OxideMod.zip
 REM Creating Update File (Oxide)
 (
-	echo curl -SL -A "Mozilla/5.0" "https://umod.org/games/rust/download" --output %forceinstall%\OxideMod.zip
-	echo cd /d %forceinstall%
+	echo curl -SL -A "Mozilla/5.0" "https://umod.org/games/rust/download" --output "%forceinstall%"\OxideMod.zip
+	echo cd /d "%forceinstall%"
 	echo powershell -command "Expand-Archive -Force OxideMod.zip ./"
 	echo del OxideMod.zip
 	echo echo.
@@ -117,7 +117,7 @@ IF ERRORLEVEL 2 goto startproc
 IF ERRORLEVEL 1 goto startcustom
 
 :startproc
-cd /d %forceinstall%
+cd /d "%forceinstall%"
 title Creating Your Startup File...
 set serverport=28015
 set /p serverport="Enter your server port (Default: 28015): "
@@ -170,13 +170,20 @@ REM Creating Start File (Procedural Map)
 	echo +server.identity "%identity%" ^^
 	echo +rcon.port %rconport% ^^
 	echo +rcon.password %rconpw% ^^
-	echo +rcon.web 1 ^^
+	echo +rcon.web 1
 	echo goto start
 )>StartServer.bat
+
+REM Creating server.cfg (Procedural Map)
+md "%forceinstall%"\server\%identity%\cfg
+cd /d "%forceinstall%"\server\%identity%\cfg
+(
+	echo fps.limit "60"
+)>server.cfg
 goto finish
 
 :startcustom
-cd /d %forceinstall%
+cd /d "%forceinstall%"
 title Creating Your Startup File (Custom Map)...
 set serverport=28015
 set /p serverport="Enter your server port (Default: 28015): "
@@ -188,7 +195,7 @@ set identity=RustServer
 echo Don't have any spaces in the identity name!
 set /p identity="Enter your server identity (Default: RustServer): "
 echo.
-set levelurl=https://www.dropbox.com/s/xyprhdhq5l8tmsf/procrustedit.map?dl=1
+set levelurl=https://www.dropbox.com/s/ig1ds1m3q5hnflj/proc_install_1.0.map?dl=1
 set /p levelurl="Enter your custom map map URL (must be a direct download link!): "
 echo.
 set maxplayers=150
@@ -224,9 +231,16 @@ REM Creating Start File (Custom Map)
 	echo +server.identity "%identity%" ^^
 	echo +rcon.port %rconport% ^^
 	echo +rcon.password %rconpw% ^^
-	echo +rcon.web 1 ^^
+	echo +rcon.web 1
 	echo goto start
 )>StartServer.bat
+
+REM Creating server.cfg (Custom Map)
+md "%forceinstall%"\server\%identity%\cfg
+cd /d "%forceinstall%"\server\%identity%\cfg
+(
+	echo fps.limit "60"
+)>server.cfg
 goto finish
 
 :finish
