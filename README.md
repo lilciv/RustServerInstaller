@@ -18,6 +18,7 @@ Follow the listed prompts.
 
 **Note:** If you do not specify a value for something, the default value will be chosen.
 
+YouTube Overview Video: https://www.youtube.com/watch?v=1YmwEsQjITs&ab_channel=lilciv
 
 For assistance, please message me on Discord: lilciv#2944
 
