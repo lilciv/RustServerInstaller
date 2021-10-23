@@ -1,5 +1,5 @@
 @echo off
-REM Rust Server Installer (v2.0.2) by lilciv#2944
+REM Rust Server Installer (v2.0.3) by lilciv#2944
 mode 110,20 & color 02
 :steamcmd
 title Installing SteamCMD...
@@ -29,10 +29,10 @@ IF ERRORLEVEL 1 goto ruststaging
 :rustmain
 echo.
 set forceinstall=C:\RustServer
-echo WARNING: Be sure there is not an existing Rust installation in this directory.
+echo WARNING: Be sure there is not an existing Rust Server installation in this directory.
 echo The folder should either be empty or non-existent.
 echo.
-set /p forceinstall="Enter the location you want Rust installed (Default: C:\RustServer): "
+set /p forceinstall="Enter the location you want the Rust Server installed (Default: C:\RustServer): "
 echo.
 md %forceinstall%
 cd /d %forceinstall%
@@ -56,10 +56,10 @@ goto choice
 :ruststaging
 echo.
 set forceinstall=C:\RustStagingServer
-echo WARNING: Be sure there is not an existing Rust installation in this directory.
+echo WARNING: Be sure there is not an existing Rust Server installation in this directory.
 echo The folder should either be empty or non-existent.
 echo.
-set /p forceinstall="Enter the location you want Rust Staging installed (Default: C:\RustStagingServer): "
+set /p forceinstall="Enter the location you want the Rust Staging Branch Server installed (Default: C:\RustStagingServer): "
 echo.
 md %forceinstall%
 cd /d %forceinstall%
@@ -126,6 +126,7 @@ set rconport=28016
 set /p rconport="Enter your RCON port (Default: 28016): "
 echo.
 set identity=RustServer
+echo Don't have any spaces in the identity name!
 set /p identity="Enter your server identity (Default: RustServer): "
 echo.
 set seed=21474
@@ -184,6 +185,7 @@ set rconport=28016
 set /p rconport="Enter your RCON port (Default: 28016): "
 echo.
 set identity=RustServer
+echo Don't have any spaces in the identity name!
 set /p identity="Enter your server identity (Default: RustServer): "
 echo.
 set levelurl=https://www.dropbox.com/s/xyprhdhq5l8tmsf/procrustedit.map?dl=1
@@ -231,7 +233,7 @@ goto finish
 echo.
 echo.
 echo.
-echo All finished! You will see two batch files in your Rust Server Folder:
+echo All finished! You will see two batch files in %forceinstall%:
 echo.
 echo StartServer.bat is to launch your server.
 echo UpdateServer.bat is to update your server (and Oxide if you installed it) come force wipe.
