@@ -29,4 +29,16 @@ Custom Maps **MUST** be a direct downloadable link, meaning the link must immeda
 
 For example, https://www.dropbox.com/s/ig1ds1m3q5hnflj/proc_install_1.0.map?dl=1 is a direct download link.
 
-For DropBox links, ensure that the end of the link has "dl=1" and not "dl=0"
+For Dropbox links, ensure that the end of the link has "dl=1" and not "dl=0"
+
+## How To Join Your Server
+To join your new server, you'll need to type one of the following commands into the Rust F1 console:
+
+If your server is hosted on the machine that you are running Rust from: ```client.connect localhost:ServerPort``` Ex: ```client.connect localhost:28015```
+
+If your server is hosted on another machine in your local network: ```client.connect MachineIP:ServerPort``` Ex: ```client.connect 192.168.1.10:28015```
+
+## How To Let Others Outside Your Network Join
+To let others outside your local network join your server, you will need to forward the UDP Server Port to your server machine.
+
+While every Router/Firewall is different, here is an explanation video by SRTBull explaining the process: https://www.youtube.com/watch?v=PYfpOUNVKoM
