@@ -41,4 +41,6 @@ If your server is hosted on another machine in your local network: ```client.con
 ## How To Let Others Outside Your Network Join
 To let others outside your local network join your server, you will need to forward the UDP Server Port to your server machine.
 
+Along with this, in many cases you will need to allow the required ports through the Windows Defender Firewall.
+
 While every Router/Firewall is different, here is an explanation video by SRTBull explaining the process: https://www.youtube.com/watch?v=PYfpOUNVKoM
