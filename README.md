@@ -22,6 +22,8 @@ YouTube Overview Video: https://www.youtube.com/watch?v=1YmwEsQjITs&ab_channel=l
 
 For assistance, please message me on Discord: lilciv#2944
 
+Tested on Windows 10, Windows 11, and Windows Server 2019.
+
 ## Custom Maps
 One thing to note about using Custom Maps:
 
