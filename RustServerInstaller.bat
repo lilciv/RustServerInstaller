@@ -1,5 +1,5 @@
 @echo off
-REM Rust Server Installer (v2.0.4) by lilciv#2944
+REM Rust Server Installer (v2.1.0) by lilciv#2944
 mode 110,20 & color 02
 :steamcmd
 title Installing SteamCMD...
@@ -180,6 +180,61 @@ cd /d "%forceinstall%"\server\%identity%\cfg
 (
 	echo fps.limit "60"
 )>server.cfg
+
+REM Creating Wipe File (Procedural Map)
+cd /d "%forceinstall%"
+(
+	echo @echo off
+	echo mode 110,20
+	echo color 02
+	echo choice /c yn /m "Do you want to wipe Blueprints?: "
+	echo IF ERRORLEVEL 2 goto wipemap
+	echo IF ERRORLEVEL 1 goto wipebp
+	echo :wipebp
+	echo echo.
+	echo echo WARNING: THIS WILL WIPE YOUR SERVERS MAP, PLAYER, AND BLUEPRINT DATA. BE SURE YOU WANT TO CONTINUE.
+	echo pause
+	echo echo.
+	echo cd /d server/%identity%
+	echo del *.sav
+	echo del *.sav.*
+	echo del *.map
+	echo del *.db
+	echo del *.db-journal
+	echo del *.db-wal
+	echo goto finishbp
+	echo :wipemap
+	echo echo.
+	echo echo WARNING: THIS WILL WIPE YOUR SERVERS MAP AND PLAYER DATA. BE SURE YOU WANT TO CONTINUE.
+	echo pause
+	echo echo.
+	echo cd /d server/%identity%
+	echo del *.sav
+	echo del *.sav.*
+	echo del *.map
+	echo del player.deaths.*
+	echo del player.identities.*
+	echo del player.states.*
+	echo del player.tokens.*
+	echo del sv.files.*
+	echo goto finishmap
+	echo :finishbp
+	echo echo.
+	echo echo Server has been Map and BP Wiped!
+	echo echo.
+	echo echo Be sure to change your map seed in your startup batch file!
+	echo echo Don't forget to delete any necessary plugin data!
+	echo pause
+	echo exit
+	echo :finishmap
+	echo echo.
+	echo echo Server has been Map Wiped!
+	echo echo.
+	echo echo Be sure to change your map seed in your startup batch file!
+	echo echo Don't forget to delete any necessary plugin data!
+	echo pause
+)>WipeServer.bat
+
 goto finish
 
 :startcustom
@@ -196,7 +251,7 @@ echo Don't have any spaces in the identity name!
 set /p identity="Enter your server identity (Default: RustServer): "
 echo.
 set levelurl=https://www.dropbox.com/s/ig1ds1m3q5hnflj/proc_install_1.0.map?dl=1
-set /p levelurl="Enter your custom map map URL (must be a direct download link!): "
+set /p levelurl="Enter your custom map map URL (Must be a direct download link!): "
 echo.
 set maxplayers=150
 set /p maxplayers="Enter the max players (Default: 150): "
@@ -235,21 +290,80 @@ REM Creating Start File (Custom Map)
 	echo goto start
 )>StartServer.bat
 
+REM Creating Wipe File (Custom Map)
+
+
 REM Creating server.cfg (Custom Map)
 md "%forceinstall%"\server\%identity%\cfg
 cd /d "%forceinstall%"\server\%identity%\cfg
 (
 	echo fps.limit "60"
 )>server.cfg
+
+REM Creating Wipe File (Custom Map)
+cd /d "%forceinstall%"
+(
+	echo @echo off
+	echo mode 110,20
+	echo color 02
+	echo choice /c yn /m "Do you want to wipe Blueprints?: "
+	echo IF ERRORLEVEL 2 goto wipemap
+	echo IF ERRORLEVEL 1 goto wipebp
+	echo :wipebp
+	echo echo.
+	echo echo WARNING: THIS WILL WIPE YOUR SERVERS MAP, PLAYER, AND BLUEPRINT DATA. BE SURE YOU WANT TO CONTINUE.
+	echo pause
+	echo echo.
+	echo cd /d server/%identity%
+	echo del *.sav
+	echo del *.sav.*
+	echo del *.map
+	echo del *.db
+	echo del *.db-journal
+	echo del *.db-wal
+	echo goto finishbp
+	echo :wipemap
+	echo echo.
+	echo echo WARNING: THIS WILL WIPE YOUR SERVERS MAP AND PLAYER DATA. BE SURE YOU WANT TO CONTINUE.
+	echo pause
+	echo echo.
+	echo cd /d server/%identity%
+	echo del *.sav
+	echo del *.sav.*
+	echo del *.map
+	echo del player.deaths.*
+	echo del player.identities.*
+	echo del player.states.*
+	echo del player.tokens.*
+	echo del sv.files.*
+	echo goto finishmap
+	echo :finishbp
+	echo echo.
+	echo echo Server has been Map and BP Wiped!
+	echo echo.
+	echo echo Be sure to change your map seed in your startup batch file!
+	echo echo Don't forget to delete any necessary plugin data!
+	echo pause
+	echo exit
+	echo :finishmap
+	echo echo.
+	echo echo Server has been Map Wiped!
+	echo echo.
+	echo echo Be sure to change your map seed in your startup batch file!
+	echo echo Don't forget to delete any necessary plugin data!
+	echo pause
+)>WipeServer.bat
+
 goto finish
 
 :finish
 echo.
 echo.
 echo.
-echo All finished! You will see two batch files in %forceinstall%:
+echo All finished! You will see three batch files in %forceinstall%:
 echo.
 echo StartServer.bat is to launch your server.
 echo UpdateServer.bat is to update your server (and Oxide if you installed it) come force wipe.
+echo WipeServer.bat is to wipe your server. You will be given the choice of just a map or full blueprint wipe.
 echo.
 pause
