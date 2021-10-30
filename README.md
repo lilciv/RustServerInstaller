@@ -20,6 +20,8 @@ Follow the listed prompts.
 
 YouTube Overview Video: https://www.youtube.com/watch?v=1YmwEsQjITs&ab_channel=lilciv
 
+Codefling: https://codefling.com/tools/rust-server-installer-script
+
 For assistance, please message me on Discord: lilciv#2944
 
 Tested on Windows 10, Windows 11, and Windows Server 2019.
