@@ -29,7 +29,7 @@ Tested on Windows 10, Windows 11, and Windows Server 2019.
 ## Custom Maps
 One thing to note about using Custom Maps:
 
-Custom Maps **MUST** be a direct downloadable link, meaning the link must immedately start the map download.
+Custom Maps **MUST** be a direct downloadable link, meaning the link must immediately start the map download.
 
 For example, https://www.dropbox.com/s/ig1ds1m3q5hnflj/proc_install_1.0.map?dl=1 is a direct download link.
 
