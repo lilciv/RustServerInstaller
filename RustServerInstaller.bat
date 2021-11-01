@@ -3,6 +3,7 @@ REM Rust Server Installer (v2.1.1) by lilciv#2944
 mode 110,20 & color 02
 
 :intro
+title Rust Server Installer - lilciv#2944
 echo This file will install a Rust Server on your computer.
 echo.
 pause
