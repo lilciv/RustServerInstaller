@@ -1,6 +1,13 @@
 @echo off
-REM Rust Server Installer (v2.1.0) by lilciv#2944
+REM Rust Server Installer (v2.1.1) by lilciv#2944
 mode 110,20 & color 02
+
+:intro
+echo This file will install a Rust Server on your computer.
+echo.
+pause
+echo.
+
 :steamcmd
 title Installing SteamCMD...
 set steamcmd=C:\SteamCMD
@@ -36,11 +43,12 @@ set /p forceinstall="Enter the location you want the Rust Server installed (Defa
 echo.
 md "%forceinstall%"
 cd /d "%forceinstall%"
-title Installing Rust...
+title Installing Rust Server...
 "%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 +quit
 REM Creating Update File (Release Server)
 (
 	echo @echo off
+	echo REM UpdateServer.bat by lilciv#2944
 	echo mode 110,20
 	echo color 02
 	echo title Updating Server...
@@ -49,6 +57,7 @@ REM Creating Update File (Release Server)
 	echo echo Rust Updated!
 	echo pause
 )>UpdateServer.bat
+echo.
 echo Rust installed!
 echo.
 goto choice
@@ -63,11 +72,12 @@ set /p forceinstall="Enter the location you want the Rust Staging Branch Server 
 echo.
 md "%forceinstall%"
 cd /d "%forceinstall%"
-title Installing Rust Staging...
+title Installing Rust Staging Server...
 "%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 -beta staging +quit
 REM Creating Update File (Staging Server)
 (
 	echo @echo off
+	echo REM UpdateServer.bat by lilciv#2944
 	echo mode 110,20
 	echo color 02
 	echo title Updating Server...
@@ -76,6 +86,7 @@ REM Creating Update File (Staging Server)
 	echo echo Rust Staging Updated!
 	echo pause
 )>UpdateServer.bat
+echo.
 echo Rust Staging installed!
 echo.
 goto map
@@ -149,8 +160,8 @@ set /p rconpw="Enter your RCON password (make it secure!): "
 echo.
 set /p serverurl="Enter your Server URL (Ex: Your Discord invite link. Can be blank if you don't have one): "
 echo.
-echo Reminder: Your Header Image MUST contain ONLY the picture, at 1024x512 size (Ex: https://i.imgur.com/5CFzQHl.png)
-set /p headerimage="Enter your Server Header Image (If you don't have one, leave this blank): "
+echo Reminder: Your Header Image link MUST contain ONLY the picture, at 1024x512 size
+set /p headerimage="Enter your Server Header Image (Can be blank if you don't have one): "
 
 REM Creating Start File (Procedural Map)
 (
@@ -185,14 +196,19 @@ REM Creating Wipe File (Procedural Map)
 cd /d "%forceinstall%"
 (
 	echo @echo off
+	echo REM WipeServer.bat by lilciv#2944
 	echo mode 110,20
 	echo color 02
+	echo echo This file will allow you to wipe your server. Be sure you want to continue.
+	echo echo.
+	echo pause
+	echo echo.
 	echo choice /c yn /m "Do you want to wipe Blueprints?: "
 	echo IF ERRORLEVEL 2 goto wipemap
 	echo IF ERRORLEVEL 1 goto wipebp
 	echo :wipebp
 	echo echo.
-	echo echo WARNING: THIS WILL WIPE YOUR SERVERS MAP, PLAYER, AND BLUEPRINT DATA. BE SURE YOU WANT TO CONTINUE.
+	echo echo WARNING: THIS WILL WIPE YOUR SERVER'S MAP, PLAYER, AND BLUEPRINT DATA. BE SURE YOU WANT TO CONTINUE.
 	echo pause
 	echo echo.
 	echo cd /d server/%identity%
@@ -205,7 +221,7 @@ cd /d "%forceinstall%"
 	echo goto finishbp
 	echo :wipemap
 	echo echo.
-	echo echo WARNING: THIS WILL WIPE YOUR SERVERS MAP AND PLAYER DATA. BE SURE YOU WANT TO CONTINUE.
+	echo echo WARNING: THIS WILL WIPE YOUR SERVER'S MAP AND PLAYER DATA. BE SURE YOU WANT TO CONTINUE.
 	echo pause
 	echo echo.
 	echo cd /d server/%identity%
@@ -224,6 +240,7 @@ cd /d "%forceinstall%"
 	echo echo.
 	echo echo Be sure to change your map seed in your startup batch file!
 	echo echo Don't forget to delete any necessary plugin data!
+	echo echo.
 	echo pause
 	echo exit
 	echo :finishmap
@@ -232,6 +249,7 @@ cd /d "%forceinstall%"
 	echo echo.
 	echo echo Be sure to change your map seed in your startup batch file!
 	echo echo Don't forget to delete any necessary plugin data!
+	echo echo.
 	echo pause
 )>WipeServer.bat
 
@@ -251,7 +269,7 @@ echo Don't have any spaces in the identity name!
 set /p identity="Enter your server identity (Default: RustServer): "
 echo.
 set levelurl=https://www.dropbox.com/s/ig1ds1m3q5hnflj/proc_install_1.0.map?dl=1
-set /p levelurl="Enter your custom map map URL (Must be a direct download link!): "
+set /p levelurl="Enter your custom map URL (Must be a direct download link!): "
 echo.
 set maxplayers=150
 set /p maxplayers="Enter the max players (Default: 150): "
@@ -267,8 +285,8 @@ set /p rconpw="Enter your RCON password (make it secure!): "
 echo.
 set /p serverurl="Enter your Server URL (Ex: Your Discord invite link. Can be blank if you don't have one): "
 echo.
-echo Reminder: Your Header Image MUST contain ONLY the picture, at 1024x512 size (Ex: https://i.imgur.com/5CFzQHl.png)
-set /p headerimage="Enter your Server Header Image (If you don't have one, leave this blank): "
+echo Reminder: Your Header Image link MUST contain ONLY the picture, at 1024x512 size
+set /p headerimage="Enter your Server Header Image (Can be blank if you don't have one): "
 
 REM Creating Start File (Custom Map)
 (
@@ -290,9 +308,6 @@ REM Creating Start File (Custom Map)
 	echo goto start
 )>StartServer.bat
 
-REM Creating Wipe File (Custom Map)
-
-
 REM Creating server.cfg (Custom Map)
 md "%forceinstall%"\server\%identity%\cfg
 cd /d "%forceinstall%"\server\%identity%\cfg
@@ -304,14 +319,19 @@ REM Creating Wipe File (Custom Map)
 cd /d "%forceinstall%"
 (
 	echo @echo off
+	echo REM WipeServer.bat by lilciv#2944
 	echo mode 110,20
 	echo color 02
+	echo echo This file will allow you to wipe your server. Be sure you want to continue.
+	echo echo.
+	echo pause
+	echo echo.
 	echo choice /c yn /m "Do you want to wipe Blueprints?: "
 	echo IF ERRORLEVEL 2 goto wipemap
 	echo IF ERRORLEVEL 1 goto wipebp
 	echo :wipebp
 	echo echo.
-	echo echo WARNING: THIS WILL WIPE YOUR SERVERS MAP, PLAYER, AND BLUEPRINT DATA. BE SURE YOU WANT TO CONTINUE.
+	echo echo WARNING: THIS WILL WIPE YOUR SERVER'S MAP, PLAYER, AND BLUEPRINT DATA. BE SURE YOU WANT TO CONTINUE.
 	echo pause
 	echo echo.
 	echo cd /d server/%identity%
@@ -324,7 +344,7 @@ cd /d "%forceinstall%"
 	echo goto finishbp
 	echo :wipemap
 	echo echo.
-	echo echo WARNING: THIS WILL WIPE YOUR SERVERS MAP AND PLAYER DATA. BE SURE YOU WANT TO CONTINUE.
+	echo echo WARNING: THIS WILL WIPE YOUR SERVER'S MAP AND PLAYER DATA. BE SURE YOU WANT TO CONTINUE.
 	echo pause
 	echo echo.
 	echo cd /d server/%identity%
@@ -341,16 +361,18 @@ cd /d "%forceinstall%"
 	echo echo.
 	echo echo Server has been Map and BP Wiped!
 	echo echo.
-	echo echo Be sure to change your map seed in your startup batch file!
+	echo echo Be sure to check your custom map link in your startup batch file!
 	echo echo Don't forget to delete any necessary plugin data!
+	echo echo.
 	echo pause
 	echo exit
 	echo :finishmap
 	echo echo.
 	echo echo Server has been Map Wiped!
 	echo echo.
-	echo echo Be sure to change your map seed in your startup batch file!
+	echo echo Be sure to check your custom map link in your startup batch file!
 	echo echo Don't forget to delete any necessary plugin data!
+	echo echo.
 	echo pause
 )>WipeServer.bat
 
@@ -363,7 +385,7 @@ echo.
 echo All finished! You will see three batch files in %forceinstall%:
 echo.
 echo StartServer.bat is to launch your server.
-echo UpdateServer.bat is to update your server (and Oxide if you installed it) come force wipe.
-echo WipeServer.bat is to wipe your server. You will be given the choice of just a map or full blueprint wipe.
+echo UpdateServer.bat is to update your server (and Oxide if it was installed) come force wipe.
+echo WipeServer.bat is to wipe your server. You will be given the choice of just a map or a full blueprint wipe.
 echo.
 pause
