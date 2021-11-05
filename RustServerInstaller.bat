@@ -1,5 +1,5 @@
 @echo off
-REM Rust Server Installer (v2.1.1) by lilciv#2944
+REM Rust Server Installer (v2.2.0) by lilciv#2944
 mode 110,20 & color 02
 
 :intro
@@ -61,7 +61,7 @@ REM Creating Update File (Release Server)
 echo.
 echo Rust installed!
 echo.
-goto choice
+goto oxidechoice
 
 :ruststaging
 echo.
@@ -90,16 +90,16 @@ REM Creating Update File (Staging Server)
 echo.
 echo Rust Staging installed!
 echo.
-goto map
+goto mapchoice
 
-:choice
+:oxidechoice
 title Setting Up Your Server
 choice /c yn /m "Would you like to install Oxide?: "
 echo.
-IF ERRORLEVEL 2 goto map
-IF ERRORLEVEL 1 goto oxide
+IF ERRORLEVEL 2 goto mapchoice
+IF ERRORLEVEL 1 goto oxideinstall
 
-:oxide
+:oxideinstall
 title Installing Oxide...
 curl -SL -A "Mozilla/5.0" "https://umod.org/games/rust/download" --output "%forceinstall%"\OxideMod.zip
 cd /d "%forceinstall%"
@@ -119,14 +119,28 @@ echo.
 echo Oxide installed!
 echo.
 echo.
-goto map
+goto mapchoice
 
-:map
+:mapchoice
 title Setting Up Your Server
 choice /c yn /m "Are you using a custom map file? (For normal/first time installs, you likely aren't): "
 echo.
 IF ERRORLEVEL 2 goto startproc
-IF ERRORLEVEL 1 goto startcustom
+IF ERRORLEVEL 1 goto rusteditchoice
+
+:rusteditchoice
+choice /c yn /m "Do you want to install the RustEdit DLL? (You usually need this for custom maps): "
+echo.
+IF ERRORLEVEL 2 goto startcustom
+IF ERRORLEVEL 1 goto rusteditinstall
+
+:rusteditinstall
+title Installing RustEdit DLL...
+powershell -Command "Invoke-WebRequest https://github.com/k1lly0u/Oxide.Ext.RustEdit/raw/master/Oxide.Ext.RustEdit.dll -OutFile "%forceinstall%"\RustDedicated_Data\Managed\Oxide.Ext.RustEdit.dll
+echo.
+echo RustEdit DLL installed!
+echo.
+goto startcustom
 
 :startproc
 cd /d "%forceinstall%"
