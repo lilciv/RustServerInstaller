@@ -5,7 +5,7 @@ SteamCMD Installation
 
 Release and Staging Branch Support
 
-Custom Map Support
+Custom Map Support - With the choice of adding the RustEdit DLL during install.
 
 Oxide Support (Release Branch Only)
 
