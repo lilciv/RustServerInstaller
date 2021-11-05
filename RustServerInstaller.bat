@@ -136,7 +136,7 @@ IF ERRORLEVEL 1 goto rusteditinstall
 
 :rusteditinstall
 title Installing RustEdit DLL...
-powershell -Command "Invoke-WebRequest https://github.com/k1lly0u/Oxide.Ext.RustEdit/raw/master/Oxide.Ext.RustEdit.dll -OutFile '"%forceinstall%"\Oxide.Ext.RustEdit.dll'
+powershell -Command "Invoke-WebRequest https://github.com/k1lly0u/Oxide.Ext.RustEdit/raw/master/Oxide.Ext.RustEdit.dll -OutFile '"%forceinstall%"\RustDedicated_Data\Managed\Oxide.Ext.RustEdit.dll'
 echo.
 echo RustEdit DLL installed!
 echo.
