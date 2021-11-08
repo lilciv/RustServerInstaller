@@ -1,10 +1,10 @@
 @echo off
-REM Rust Server Installer (v2.2.1) by lilciv#2944
+REM Rust Server Installer (v2.2.2) by lilciv#2944
 mode 110,20 & color 02
 
 :intro
 title Rust Server Installer - lilciv#2944
-echo This file will install a Rust Server on your computer.
+echo This script will install a Rust Server on your computer.
 echo.
 pause
 echo.
@@ -56,7 +56,14 @@ REM Creating Update File (Release Server)
 	echo "%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 +quit
 	echo echo.
 	echo echo Rust Updated!
-	echo pause
+	echo echo.
+	echo choice /c yn /m "Do you want to run your server now?: "
+	echo IF ERRORLEVEL 2 exit
+	echo IF ERRORLEVEL 1 goto serverstart
+	echo :serverstart
+	echo mode 120,30
+	echo title %comspec%
+	echo StartServer.bat
 )>UpdateServer.bat
 echo.
 echo Rust installed!
@@ -85,7 +92,14 @@ REM Creating Update File (Staging Server)
 	echo "%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 -beta staging +quit
 	echo echo.
 	echo echo Rust Staging Updated!
-	echo pause
+	echo echo.
+	echo choice /c yn /m "Do you want to run your server now?: "
+	echo IF ERRORLEVEL 2 exit
+	echo IF ERRORLEVEL 1 goto serverstart
+	echo :serverstart
+	echo mode 120,30
+	echo title %comspec%
+	echo StartServer.bat
 )>UpdateServer.bat
 echo.
 echo Rust Staging installed!
@@ -107,14 +121,30 @@ powershell -command "Expand-Archive -Force OxideMod.zip ./"
 del OxideMod.zip
 REM Creating Update File (Oxide)
 (
+	echo @echo off
+	echo REM UpdateServer.bat by lilciv#2944
+	echo mode 110,20
+	echo color 02
+	echo title Updating Server...
+	echo "%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 +quit
+	echo echo.
+	echo echo Rust Updated!
+	echo pause
 	echo curl -SL -A "Mozilla/5.0" "https://umod.org/games/rust/download" --output "%forceinstall%"\OxideMod.zip
 	echo cd /d "%forceinstall%"
 	echo powershell -command "Expand-Archive -Force OxideMod.zip ./"
 	echo del OxideMod.zip
 	echo echo.
 	echo echo Oxide Updated!
-	echo pause
-)>>UpdateServer.bat
+	echo echo.
+	echo choice /c yn /m "Do you want to run your server now?: "
+	echo IF ERRORLEVEL 2 exit
+	echo IF ERRORLEVEL 1 goto serverstart
+	echo :serverstart
+	echo mode 120,30
+	echo title %comspec%
+	echo StartServer.bat
+)>UpdateServer.bat
 echo.
 echo Oxide installed!
 echo.
@@ -403,4 +433,12 @@ echo StartServer.bat is to launch your server.
 echo UpdateServer.bat is to update your server (and Oxide if it was installed) come force wipe.
 echo WipeServer.bat is to wipe your server. You will be given the choice of just a map or a full blueprint wipe.
 echo.
-pause
+choice /c yn /m "Do you want to run your new server now?: "
+echo.
+IF ERRORLEVEL 2 exit
+IF ERRORLEVEL 1 goto serverstart
+
+:serverstart
+mode 120,30
+title %comspec%
+StartServer.bat
