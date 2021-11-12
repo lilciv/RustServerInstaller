@@ -26,6 +26,8 @@ For assistance, please message me on Discord: lilciv#2944
 
 Tested on Windows 10, Windows 11, and Windows Server 2019.
 
+This script is not supported on Windows 7 in any way. It will not run.
+
 ## Custom Maps
 One thing to note about using Custom Maps:
 
