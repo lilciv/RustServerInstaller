@@ -18,7 +18,7 @@ Follow the listed prompts.
 
 **Note:** If you do not specify a value for something, the default value will be chosen.
 
-YouTube Overview Video: https://www.youtube.com/watch?v=1YmwEsQjITs&ab_channel=lilciv
+YouTube Overview Video by SRTBull: https://www.youtube.com/watch?v=9tG0xH8LNn4
 
 Codefling: https://codefling.com/tools/rust-server-installer-script
 
