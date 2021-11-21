@@ -28,6 +28,8 @@ Tested on Windows 10, Windows 11, and Windows Server 2019.
 
 This script is not supported on Windows 7 or Windows 8/8.1 in any way. It will not run.
 
+FYI: If you use any sort of Antivirus program that manages SSL certificates, you will need to disable it for this script to run properly. Kaspersky and Bitdefender seem too be two common ones causing issues.
+
 
 ## Custom Maps
 One thing to note about using Custom Maps:
