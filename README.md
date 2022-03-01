@@ -11,6 +11,8 @@ Custom Map Support - With the choice of adding the RustEdit DLL during install.
 
 Oxide Support (Release Branch Only)
 
+Defining an admin post install
+
 Creation of StartServer.bat, UpdateServer.bat, and WipeServer.bat files based on user values.
 
 ## How To Use
