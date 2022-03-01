@@ -1,51 +1,60 @@
 @echo off
-REM Rust Server Installer (v2.2.2) by lilciv#2944
-mode 110,20 & color 02
+REM Rust Server Installer (v2.3.0) by lilciv#2944
+mode 130,25 & color 02
 
 :intro
 title Rust Server Installer - lilciv#2944
 echo This script will install a Rust Server on your computer.
 echo.
 pause
-echo.
+cls
 
 :steamcmd
 title Installing SteamCMD...
 set steamcmd=C:\SteamCMD
-set /p steamcmd="Enter the location you want SteamCMD installed (Default: C:\SteamCMD): "
+echo Enter the location you want SteamCMD installed (Default: C:\SteamCMD)
+echo.
+set /p steamcmd="Location: "
 echo.
 md "%steamcmd%"
 curl -SL -A "Mozilla/5.0" https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip --output "%steamcmd%"\SteamCMD.zip
 cd /d "%steamcmd%"
 powershell -command "Expand-Archive -Force SteamCMD.zip ./"
 del SteamCMD.zip
-echo.
+cls
 echo SteamCMD installed!
-echo.
+echo -------------------
 
 :branch
 title Setting Up Your Server
 echo.
+echo Pick Your Server Branch
+echo.
+echo 1: Main Branch Server
+echo 2: Staging Branch Server
 echo.
 echo Note: There is no direct Oxide support for the Staging Branch. You will have to manually install it.
 echo.
-choice /c yn /m "Do you want to install a Staging Branch server? (Usually, you DO NOT want to do this): "
-echo.
-If ERRORLEVEL 2 goto rustmain
-IF ERRORLEVEL 1 goto ruststaging
+set /p choice="Enter 1 or 2: "
+if not '%choice%'=='' set choice=%choice:~0,1%
+cls
+if '%choice%' == '1' goto rustmain
+if '%choice%' == '2' goto ruststaging
+echo Please Enter 1 or 2.
+goto branch
 
 :rustmain
-echo.
 set forceinstall=C:\RustServer
 echo WARNING: Be sure there is not an existing Rust Server installation in this directory.
 echo The folder should either be empty or non-existent.
 echo.
-set /p forceinstall="Enter the location you want the Rust Server installed (Default: C:\RustServer): "
+echo Enter the location you want the Rust Server installed (Default: C:\RustServer)
 echo.
+set /p forceinstall="Location: "
 md "%forceinstall%"
 cd /d "%forceinstall%"
 title Installing Rust Server...
-"%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 +quit
+"%steamcmd%"\steamcmd.exe +force_install_dir "%forceinstall%" +login anonymous +app_update 258550 +quit
 REM Creating Update File (Release Server)
 (
 	echo @echo off
@@ -53,7 +62,7 @@ REM Creating Update File (Release Server)
 	echo mode 110,20
 	echo color 02
 	echo title Updating Server...
-	echo "%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 +quit
+	echo "%steamcmd%"\steamcmd.exe +force_install_dir "%forceinstall%" +login anonymous +app_update 258550 +quit
 	echo echo.
 	echo echo Rust Updated!
 	echo echo.
@@ -65,23 +74,25 @@ REM Creating Update File (Release Server)
 	echo title %comspec%
 	echo StartServer.bat
 )>UpdateServer.bat
-echo.
-echo Rust installed!
+cls
+echo Rust Server Installed!
+echo ----------------------
 echo.
 goto oxidechoice
 
 :ruststaging
-echo.
 set forceinstall=C:\RustStagingServer
 echo WARNING: Be sure there is not an existing Rust Server installation in this directory.
 echo The folder should either be empty or non-existent.
 echo.
-set /p forceinstall="Enter the location you want the Rust Staging Branch Server installed (Default: C:\RustStagingServer): "
+echo Enter the location you want the Rust Staging Branch Server installed (Default: C:\RustStagingServer)
+echo.
+set /p forceinstall="Location: "
 echo.
 md "%forceinstall%"
 cd /d "%forceinstall%"
 title Installing Rust Staging Server...
-"%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 -beta staging +quit
+"%steamcmd%"\steamcmd.exe +force_install_dir "%forceinstall%" +login anonymous +app_update 258550 -beta staging +quit
 REM Creating Update File (Staging Server)
 (
 	echo @echo off
@@ -89,7 +100,7 @@ REM Creating Update File (Staging Server)
 	echo mode 110,20
 	echo color 02
 	echo title Updating Server...
-	echo "%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 -beta staging +quit
+	echo "%steamcmd%"\steamcmd.exe +force_install_dir "%forceinstall%" +login anonymous +app_update 258550 -beta staging +quit
 	echo echo.
 	echo echo Rust Staging Updated!
 	echo echo.
@@ -101,15 +112,16 @@ REM Creating Update File (Staging Server)
 	echo title %comspec%
 	echo StartServer.bat
 )>UpdateServer.bat
-echo.
-echo Rust Staging installed!
+cls
+echo Rust Staging Server Installed!
+echo ------------------------------
 echo.
 goto mapchoice
 
 :oxidechoice
 title Setting Up Your Server
 choice /c yn /m "Would you like to install Oxide?: "
-echo.
+cls
 IF ERRORLEVEL 2 goto mapchoice
 IF ERRORLEVEL 1 goto oxideinstall
 
@@ -126,7 +138,7 @@ REM Creating Update File (Oxide)
 	echo mode 110,20
 	echo color 02
 	echo title Updating Server...
-	echo "%steamcmd%"\steamcmd.exe +login anonymous +force_install_dir "%forceinstall%" +app_update 258550 +quit
+	echo "%steamcmd%"\steamcmd.exe +force_install_dir "%forceinstall%" +login anonymous +app_update 258550 +quit
 	echo echo.
 	echo echo Rust Updated!
 	echo pause
@@ -145,16 +157,16 @@ REM Creating Update File (Oxide)
 	echo title %comspec%
 	echo StartServer.bat
 )>UpdateServer.bat
-echo.
+cls
 echo Oxide installed!
-echo.
+echo ----------------
 echo.
 goto mapchoice
 
 :mapchoice
 title Setting Up Your Server
 choice /c yn /m "Are you using a custom map file? (For normal/first time installs, you likely aren't): "
-echo.
+cls
 IF ERRORLEVEL 2 goto startproc
 IF ERRORLEVEL 1 goto rusteditchoice
 
@@ -167,8 +179,9 @@ IF ERRORLEVEL 1 goto rusteditinstall
 :rusteditinstall
 title Installing RustEdit DLL...
 powershell -Command "Invoke-WebRequest https://github.com/k1lly0u/Oxide.Ext.RustEdit/raw/master/Oxide.Ext.RustEdit.dll -OutFile '"%forceinstall%"\RustDedicated_Data\Managed\Oxide.Ext.RustEdit.dll'
-echo.
+cls
 echo RustEdit DLL installed!
+echo -----------------------
 echo.
 goto startcustom
 
@@ -185,16 +198,16 @@ set identity=RustServer
 echo Don't have any spaces in the identity name!
 set /p identity="Enter your server identity (Default: RustServer): "
 echo.
-set seed=21474
-set /p seed="Enter your map seed (Default: 21474): "
+set seed=1337
+set /p seed="Enter your map seed (Default: 1337): "
 echo.
-set worldsize=3500
-set /p worldsize="Enter your world size (Default: 3500): "
+set worldsize=4500
+set /p worldsize="Enter your world size (Default: 4500): "
 echo.
 set maxplayers=150
 set /p maxplayers="Enter the max players (Default: 150): "
 echo.
-set hostname=Dedicated Rust Server
+set hostname=A Simple Rust Server
 set /p hostname="Enter your server's hostname (How it appears on the server browser): "
 echo.
 set description=An unconfigured Rust server.
@@ -298,7 +311,12 @@ cd /d "%forceinstall%"
 	echo pause
 )>WipeServer.bat
 
-goto finish
+REM Admin Check
+cls
+choice /c yn /m "Do you want to add yourself as an admin on the server now?: "
+cls
+IF ERRORLEVEL 2 goto finish
+IF ERRORLEVEL 1 goto admin
 
 :startcustom
 cd /d "%forceinstall%"
@@ -319,7 +337,7 @@ echo.
 set maxplayers=150
 set /p maxplayers="Enter the max players (Default: 150): "
 echo.
-set hostname=Dedicated Rust Server
+set hostname=A Simple Rust Server
 set /p hostname="Enter your server's hostname (How it appears on the server browser): "
 echo.
 set description=An unconfigured Rust server.
@@ -421,12 +439,30 @@ cd /d "%forceinstall%"
 	echo pause
 )>WipeServer.bat
 
+REM Admin Check
+cls
+choice /c yn /m "Do you want to add yourself as an admin on the server now?: "
+cls
+IF ERRORLEVEL 2 goto finish
+IF ERRORLEVEL 1 goto admin
+
+:admin
+REM This is not a valid SteamID, don't worry!
+set steamid=12345678901234567
+echo If you do not know your SteamID, please go here: https://www.businessinsider.com/how-to-find-steam-id
+echo.
+echo Admin and Moderator users are stored in the users.cfg folder located here: %forceinstall%\server\%identity%\cfg
+echo.
+set /p steamid="Enter your Steam64 ID: "
+
+cd /d "%forceinstall%"\server\%identity%\cfg
+(
+	echo ownerid %steamid% "unknown" "no reason"
+)>users.cfg
+cls
 goto finish
 
 :finish
-echo.
-echo.
-echo.
 echo All finished! You will see three batch files in %forceinstall%:
 echo.
 echo StartServer.bat is to launch your server.
@@ -439,6 +475,7 @@ IF ERRORLEVEL 2 exit
 IF ERRORLEVEL 1 goto serverstart
 
 :serverstart
+cd /d "%forceinstall%"
 mode 120,30
 title %comspec%
 StartServer.bat
