@@ -27,7 +27,8 @@ Codefling: https://codefling.com/tools/rust-server-installer-script
 For assistance, please message me on Discord: lilciv#2944  
 
 Tested on Windows 10, Windows 11, and Windows Server 2019.  
-This script is not supported on Windows 7 or Windows 8/8.1 in any way. It will not run.
+For Windows Server 2016, 2012R2 and Windows 8/8.1 support, you need to install cURL. (see https://curl.se/download.html)
+Alternatively, you can use my Powershell edition for older operating systems found on this GitHub - this will work on all of the operating systems listed above.
 
 **FYI:** If you use any sort of Antivirus program that manages SSL certificates, you will need to disable it for this script to run properly. Kaspersky and Bitdefender seem to be two common ones causing issues.
 
