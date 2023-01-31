@@ -1,5 +1,5 @@
 @echo off
-REM Rust Server Installer (v2.3.0) by lilciv#2944
+REM Rust Server Installer (v2.4.0) by lilciv#2944
 mode 130,25 & color 02
 
 :intro
@@ -194,6 +194,9 @@ echo.
 set rconport=28016
 set /p rconport="Enter your RCON port (Default: 28016): "
 echo.
+set queryport=28017
+set /p queryport="Enter your server query port (Default: 28017): "
+echo.
 set identity=RustServer
 echo Don't have any spaces in the identity name!
 set /p identity="Enter your server identity (Default: RustServer): "
@@ -227,6 +230,7 @@ REM Creating Start File (Procedural Map)
 	echo :start
 	echo RustDedicated.exe -batchmode ^^
 	echo -logFile "%identity%_logs.txt" ^^
+	echo +server.queryport %queryport% ^^
 	echo +server.port %serverport% ^^
 	echo +server.level "Procedural Map" ^^
 	echo +server.seed %seed% ^^
@@ -327,6 +331,9 @@ echo.
 set rconport=28016
 set /p rconport="Enter your RCON port (Default: 28016): "
 echo.
+set queryport=28017
+set /p queryport="Enter your server query port (Default: 28017): "
+echo.
 set identity=RustServer
 echo Don't have any spaces in the identity name!
 set /p identity="Enter your server identity (Default: RustServer): "
@@ -358,6 +365,7 @@ REM Creating Start File (Custom Map)
 	echo RustDedicated.exe -batchmode ^^
 	echo -logFile "%identity%_logs.txt" ^^
 	echo -levelurl "%levelurl%" ^^
+	echo +server.queryport %queryport% ^^
 	echo +server.port %serverport% ^^
 	echo +server.maxplayers %maxplayers% ^^
 	echo +server.hostname "%hostname%" ^^
@@ -451,7 +459,7 @@ REM This is not a valid SteamID, don't worry!
 set steamid=12345678901234567
 echo If you do not know your SteamID, please go here: https://www.businessinsider.com/how-to-find-steam-id
 echo.
-echo Admin and Moderator users are stored in the users.cfg folder located here: %forceinstall%\server\%identity%\cfg
+echo Admin and Moderator users are stored in the users.cfg file located here: %forceinstall%\server\%identity%\cfg
 echo.
 set /p steamid="Enter your Steam64 ID: "
 
