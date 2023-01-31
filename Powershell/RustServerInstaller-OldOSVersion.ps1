@@ -1,5 +1,5 @@
-# Rust Server Installer (Powershell Edition for Older Operating Systems) (v2.3.0) by lilciv#2944
-# Confirmed Working on Windows 8.1, Windows Server 2012R2, and Windows Server 2016
+# Rust Server Installer (Powershell Edition for Older Operating Systems) (v2.4.0) by lilciv#2944
+# Works on Windows 8.1, Windows Server 2012R2, and Windows Server 2016
 
 #----------------------------------------------
 
@@ -29,7 +29,7 @@ function SteamCMD {
     $host.UI.RawUI.WindowTitle = "Installing SteamCMD..."
     Write-host "Enter the location you want SteamCMD installed (Default: C:\SteamCMD)"
     Write-Host "`n"
-    $SteamCMD = Read-Host "Location: "
+    $SteamCMD = Read-Host "Location"
     if ($SteamCMD -eq [string]::empty) {
         $SteamCMD = "C:\SteamCMD"
     }
@@ -82,7 +82,7 @@ function MainBranch {
     Write-Host "The folder should either be empty or non-existent."
     Write-Host "`n"
     Write-Host "Enter the location you want the Rust Server installed (Default: C:\RustServer)"
-    $ForceInstall = Read-Host "Location: "
+    $ForceInstall = Read-Host "Location"
     if ($ForceInstall -eq [string]::empty) {
         $ForceInstall = "C:\RustServer"
     }
@@ -133,7 +133,7 @@ function StagingBranch {
     Write-Host "The folder should either be empty or non-existent."
     Write-Host "`n"
     Write-Host "Enter the location you want the Rust Staging Branch Server installed (Default: C:\RustStagingServer)"
-    $ForceInstall = Read-Host "Location: "
+    $ForceInstall = Read-Host "Location"
     if ($ForceInstall -eq [string]::empty) {
         $ForceInstall = "C:\RustStagingServer"
     }
@@ -309,55 +309,60 @@ function StartProc {
     Clear-Host
     $host.UI.RawUI.WindowTitle = "Creating Your Startup File..."
     Set-Location "$ForceInstall"
-    $ServerPort = Read-Host "Enter your server port (Default: 28015): "
+    $ServerPort = Read-Host "Enter your server port (Default: 28015)"
     if ($ServerPort -eq [string]::empty) {
         $ServerPort = "28015"
     }
     Write-Host "`n"
-    $RCONPort =  Read-Host "Enter your RCON port (Default: 28016): "
+    $RCONPort =  Read-Host "Enter your RCON port (Default: 28016)"
     if ($RCONPort -eq [string]::empty) {
         $RCONPort = "28016"
     }
     Write-Host "`n"
+    $QueryPort =  Read-Host "Enter your server query port (Default: 28017)"
+    if ($QueryPort -eq [string]::empty) {
+        $QueryPort = "28017"
+    }
+    Write-Host "`n"
     Write-Host "Don't have any spaces in the identity name!"
-    $Identity = Read-Host "Enter your server identity (Default: RustServer): "
+    $Identity = Read-Host "Enter your server identity (Default: RustServer)"
     if ($Identity -eq [string]::empty) {
         $Identity = "RustServer"
     }
     Write-Host "`n"
-    $Seed = Read-Host "Enter your map seed (Default: 1337): "
+    $Seed = Read-Host "Enter your map seed (Default: 1337)"
     if ($Seed -eq [string]::empty) {
         $Seed = "1337"
     }
     Write-Host "`n"
-    $WorldSize = Read-Host "Enter your world size (Default: 4500): "
+    $WorldSize = Read-Host "Enter your world size (Default: 4500)"
     if ($WorldSize -eq [string]::empty) {
         $WorldSize = "4500"
     }
     Write-Host "`n"
-    $MaxPlayers = Read-Host "Enter the max players (Default: 150): "
+    $MaxPlayers = Read-Host "Enter the max players (Default: 150)"
     if ($MaxPlayers -eq [string]::empty) {
         $MaxPlayers = "150"
     }
     Write-Host "`n"
-    $Hostname = Read-Host "Enter your server's hostname (How it appears on the server browser): "
+    $Hostname = Read-Host "Enter your server's hostname (How it appears on the server browser)"
     if ($Hostname -eq [string]::empty) {
         $Hostname = "A Simple Rust Server"
     }
     Write-Host "`n"
-    $Description = Read-Host "Enter your server's description: "
+    $Description = Read-Host "Enter your server's description"
     if ($Description -eq [string]::empty) {
         $Description = "An unconfigured Rust server."
     }
     Write-Host "`n"
-    $RCONPW = Read-Host "Enter your RCON password (make it secure!): "
+    $RCONPW = Read-Host "Enter your RCON password (make it secure!)"
     if ($RCONPW -eq [string]::empty) {
         $RCONPW = "ChangeThisPlease"
     }
     Write-Host "`n"
-    $ServerURL = Read-Host "Enter your Server URL (Ex: Your Discord invite link. Can be blank if you don't have one): "
+    $ServerURL = Read-Host "Enter your Server URL (Ex: Your Discord invite link. Can be blank if you don't have one)"
     Write-Host "`n"
-    $HeaderImage = Read-Host "Enter your Server Header Image (Can be blank if you don't have one): "
+    $HeaderImage = Read-Host "Enter your Server Header Image (Can be blank if you don't have one)"
     $StartServer = "StartServer.bat"
     # Creating Start File (Procedural Map)
 $StartProc = @"
@@ -365,6 +370,7 @@ $StartProc = @"
 :start
 RustDedicated.exe -batchmode ^
 -logFile "$Identity-logs.txt" ^
++server.queryport $QueryPort ^
 +server.port $ServerPort ^
 +server.level "Procedural Map" ^
 +server.seed $Seed ^
@@ -480,50 +486,55 @@ pause
 function StartCustom {
     $host.UI.RawUI.WindowTitle = "Creating Your Startup File (Custom Map)..."
     Set-Location "$ForceInstall"
-    $ServerPort = Read-Host "Enter your server port (Default: 28015): "
+    $ServerPort = Read-Host "Enter your server port (Default: 28015)"
     if ($ServerPort -eq [string]::empty) {
         $ServerPort = "28015"
     }
     Write-Host "`n"
-    $RCONPort =  Read-Host "Enter your RCON port (Default: 28016): "
+    $RCONPort =  Read-Host "Enter your RCON port (Default: 28016)"
     if ($RCONPort -eq [string]::empty) {
         $RCONPort = "28016"
     }
     Write-Host "`n"
+    $QueryPort =  Read-Host "Enter your server query port (Default: 28017)"
+    if ($QueryPort -eq [string]::empty) {
+        $QueryPort = "28017"
+    }
+    Write-Host "`n"
     Write-Host "Don't have any spaces in the identity name!"
-    $Identity = Read-Host "Enter your server identity (Default: RustServer): "
+    $Identity = Read-Host "Enter your server identity (Default: RustServer)"
     if ($Identity -eq [string]::empty) {
         $Identity = "RustServer"
     }
     Write-Host "`n"
-    $LevelURL = Read-Host "Enter your custom map URL (Must be a direct download link!): "
+    $LevelURL = Read-Host "Enter your custom map URL (Must be a direct download link!)"
     if ($LevelURL -eq [string]::empty) {
         $LevelURL = "https://www.dropbox.com/s/ig1ds1m3q5hnflj/proc_install_1.0.map?dl=1"
     }
     Write-Host "`n"
-    $MaxPlayers = Read-Host "Enter the max players (Default: 150): "
+    $MaxPlayers = Read-Host "Enter the max players (Default: 150)"
     if ($MaxPlayers -eq [string]::empty) {
         $MaxPlayers = "150"
     }
     Write-Host "`n"
-    $Hostname = Read-Host "Enter your server's hostname (How it appears on the server browser): "
+    $Hostname = Read-Host "Enter your server's hostname (How it appears on the server browser)"
     if ($Hostname -eq [string]::empty) {
         $Hostname = "A Simple Rust Server"
     }
     Write-Host "`n"
-    $Description = Read-Host "Enter your server's description: "
+    $Description = Read-Host "Enter your server's description"
     if ($Description -eq [string]::empty) {
         $Description = "An unconfigured Rust server."
     }
     Write-Host "`n"
-    $RCONPW = Read-Host "Enter your RCON password (make it secure!): "
+    $RCONPW = Read-Host "Enter your RCON password (make it secure!)"
     if ($RCONPW -eq [string]::empty) {
         $RCONPW = "ChangeThisPlease"
     }
     Write-Host "`n"
-    $ServerURL = Read-Host "Enter your Server URL (Ex: Your Discord invite link. Can be blank if you don't have one): "
+    $ServerURL = Read-Host "Enter your Server URL (Ex: Your Discord invite link. Can be blank if you don't have one)"
     Write-Host "`n"
-    $HeaderImage = Read-Host "Enter your Server Header Image (Can be blank if you don't have one): "
+    $HeaderImage = Read-Host "Enter your Server Header Image (Can be blank if you don't have one)"
     # Creating Start File (Custom Map)
     $StartServer = "StartServer.bat"
 $StartCustom = @"
@@ -532,6 +543,7 @@ $StartCustom = @"
 RustDedicated.exe -batchmode ^
 -logFile "$Identity-logs.txt" ^
 -levelurl "$LevelURL" ^
++server.queryport $QueryPort ^
 +server.port $ServerPort ^
 +server.maxplayers $MaxPlayers ^
 +server.hostname "$Hostname" ^
@@ -648,7 +660,7 @@ function Admin {
     Write-Host "Admin and Moderator users are stored in the users.cfg file located here: $ForceInstall\server\$Identity\cfg"
     Write-Host "`n"
     # This is not a valid SteamID, don't worry!
-    $SteamID = Read-Host "Enter your Steam64 ID: "
+    $SteamID = Read-Host "Enter your Steam64 ID"
     if ($SteamID -eq [string]::empty) {
         $SteamID = "12345678901234567"
     }
