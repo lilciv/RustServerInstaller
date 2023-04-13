@@ -11,6 +11,8 @@ Custom Map Support - With the choice of adding the RustEdit DLL during install.
 
 Oxide Support (Release Branch Only)
 
+Carbon Support
+
 Defining an admin post install
 
 Creation of StartServer.bat, UpdateServer.bat, and WipeServer.bat files based on user values.
@@ -40,7 +42,7 @@ Line 30 (**cd /d server/identity**) - change the **identity** name to your new o
 
 </br>
 
-**Note:** It is not recommended to move the install directory of your server after the script has run, as the UpdateServer.bat file will no longer function as expected. While you can manually update the file to reference the new directory, it is generally easier and recommended to run the script from scratch to complete a fresh Rust Server install, and then copy over your **server** and **oxide** folders, ensuring your identity name remains the same.
+**Note:** It is not recommended to move the install directory of your server after the script has run, as the UpdateServer.bat file will no longer function as expected. While you can manually update the file to reference the new directory, it is generally easier and recommended to run the script from scratch to complete a fresh Rust Server install, and then copy over your **server** and **oxide** or **carbon** folders, ensuring your identity name remains the same.
 
 
 ## Custom Maps
