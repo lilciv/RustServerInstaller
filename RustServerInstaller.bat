@@ -1,5 +1,5 @@
 @echo off
-REM Rust Server Installer (v2.4.0) by lilciv#2944
+REM Rust Server Installer (v3.0.0) by lilciv#2944
 mode 130,25 & color 02
 
 :intro
@@ -78,7 +78,7 @@ cls
 echo Rust Server Installed!
 echo ----------------------
 echo.
-goto oxidechoice
+goto modchoice
 
 :ruststaging
 set forceinstall=C:\RustStagingServer
@@ -116,14 +116,42 @@ cls
 echo Rust Staging Server Installed!
 echo ------------------------------
 echo.
-goto mapchoice
+goto modchoicestaging
 
-:oxidechoice
+:modchoice
 title Setting Up Your Server
-choice /c yn /m "Would you like to install Oxide?: "
+
+echo 1: Oxide
+echo 2: Carbon
+echo 3: Vanilla (No Mods)
+echo.
+set /p mod="Would you like to install Oxide or Carbon?: "
+echo.
+if not '%mod%'=='' set mod=%mod:~0,1%
 cls
-IF ERRORLEVEL 2 goto mapchoice
-IF ERRORLEVEL 1 goto oxideinstall
+if '%mod%' == '1' goto oxideinstall
+if '%mod%' == '2' goto carboninstall
+if '%mod%' == '3' goto mapchoice
+echo Please Enter 1, 2, or 3.
+echo.
+goto modchoice
+
+:modchoicestaging
+title Setting Up Your Server
+
+echo 1: Carbon
+echo 2: Vanilla (No Mods)
+echo.
+set /p mod="Would you like to install Carbon?: "
+echo.
+if not '%mod%'=='' set mod=%mod:~0,1%
+cls
+if '%mod%' == '1' goto carboninstallstaging
+if '%mod%' == '2' goto mapchoice
+echo Please Enter 1 or 2.
+echo.
+goto modchoicestaging
+
 
 :oxideinstall
 title Installing Oxide...
@@ -159,6 +187,93 @@ REM Creating Update File (Oxide)
 )>UpdateServer.bat
 cls
 echo Oxide installed!
+echo ----------------
+echo.
+goto mapchoice
+
+:carboninstall
+title Installing Carbon...
+curl -SL -A "Mozilla/5.0" "https://github.com/CarbonCommunity/Carbon.Core/releases/download/production_build/Carbon.Windows.Release.zip" --output "%forceinstall%"\CarbonMod.zip
+cd /d "%forceinstall%"
+powershell -command "Expand-Archive -Force CarbonMod.zip ./"
+del CarbonMod.zip
+REM Creating Update File (Carbon)
+(
+	echo @echo off
+	echo REM UpdateServer.bat by lilciv#2944
+	echo mode 110,20
+	echo color 02
+	echo title Updating Server...
+	echo "%steamcmd%"\steamcmd.exe +force_install_dir "%forceinstall%" +login anonymous +app_update 258550 +quit
+	echo echo.
+	echo echo Rust Updated!
+	echo pause
+	echo echo.
+	echo choice /c yn /m "Do you want to update Carbon now?: "
+	echo IF ERRORLEVEL 2 goto start
+	echo IF ERRORLEVEL 1 goto carbonupdate
+	echo :carbonupdate
+	echo curl -SL -A "Mozilla/5.0" "https://github.com/CarbonCommunity/Carbon.Core/releases/download/production_build/Carbon.Windows.Release.zip" --output "%forceinstall%"\CarbonMod.zip
+	echo cd /d "%forceinstall%"
+	echo powershell -command "Expand-Archive -Force CarbonMod.zip ./"
+	echo del CarbonMod.zip
+	echo echo.
+	echo echo Carbon Updated!
+	echo :start
+	echo echo.
+	echo choice /c yn /m "Do you want to run your server now?: "
+	echo IF ERRORLEVEL 2 exit
+	echo IF ERRORLEVEL 1 goto serverstart
+	echo :serverstart
+	echo mode 120,30
+	echo title %comspec%
+	echo StartServer.bat
+)>UpdateServer.bat
+cls
+echo Carbon installed!
+echo ----------------
+echo.
+goto mapchoice
+
+:carboninstallstaging
+title Installing Carbon...
+curl -SL -A "Mozilla/5.0" "https://github.com/CarbonCommunity/Carbon.Core/releases/download/production_build/Carbon.Windows.Release.zip" --output "%forceinstall%"\CarbonMod.zip
+cd /d "%forceinstall%"
+powershell -command "Expand-Archive -Force CarbonMod.zip ./"
+del CarbonMod.zip
+REM Creating Update File (Carbon Staging)
+(
+	echo @echo off
+	echo REM UpdateServer.bat by lilciv#2944
+	echo mode 110,20
+	echo color 02
+	echo title Updating Server...
+	echo "%steamcmd%"\steamcmd.exe +force_install_dir "%forceinstall%" +login anonymous +app_update 258550 -beta staging +quit
+	echo echo.
+	echo echo Rust Staging Updated!
+	echo echo.
+	echo choice /c yn /m "Do you want to update Carbon now?: "
+	echo IF ERRORLEVEL 2 goto start
+	echo IF ERRORLEVEL 1 goto carbonupdate
+	echo :carbonupdate
+	echo curl -SL -A "Mozilla/5.0" "https://github.com/CarbonCommunity/Carbon.Core/releases/download/production_build/Carbon.Windows.Release.zip" --output "%forceinstall%"\CarbonMod.zip
+	echo cd /d "%forceinstall%"
+	echo powershell -command "Expand-Archive -Force CarbonMod.zip ./"
+	echo del CarbonMod.zip
+	echo echo.
+	echo echo Carbon Updated!
+	echo :start
+	echo echo.
+	echo choice /c yn /m "Do you want to run your server now?: "
+	echo IF ERRORLEVEL 2 exit
+	echo IF ERRORLEVEL 1 goto serverstart
+	echo :serverstart
+	echo mode 120,30
+	echo title %comspec%
+	echo StartServer.bat
+)>UpdateServer.bat
+cls
+echo Carbon installed!
 echo ----------------
 echo.
 goto mapchoice
@@ -459,7 +574,7 @@ REM This is not a valid SteamID, don't worry!
 set steamid=12345678901234567
 echo If you do not know your SteamID, please go here: https://www.businessinsider.com/how-to-find-steam-id
 echo.
-echo Admin and Moderator users are stored in the users.cfg file located here: %forceinstall%\server\%identity%\cfg
+echo Admin and Moderator users are stored in the users.cfg folder located here: %forceinstall%\server\%identity%\cfg
 echo.
 set /p steamid="Enter your Steam64 ID: "
 
